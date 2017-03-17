@@ -11,7 +11,8 @@ class Runner
 
   def run()
     if @viewer.start == true
-      @viewer.options_menu
+      loop until @viewer.options_menu == false
+
     end
   end
 

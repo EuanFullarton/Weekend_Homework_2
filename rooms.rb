@@ -1,4 +1,5 @@
 require_relative('./guests')
+
 class Room
 
   attr_reader :guests, :songs, :capacity, :entry_fee
@@ -27,6 +28,15 @@ class Room
 
   def add_song_to_room(song_name)
     @songs << song_name
+  end
+
+  def run()
+    # get input for guest_name and guest_money
+    # return new list of guests
+    # ask if they want to invite another guest
+    # return new list of guests
+    # give option of adding another person, removing a person, viewing song list, adding song to queue.
+
   end
 
 end

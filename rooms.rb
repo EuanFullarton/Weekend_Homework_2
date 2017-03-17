@@ -1,15 +1,20 @@
 require_relative('./guests')
 class Room
 
-  attr_reader :guests, :songs
+  attr_reader :guests, :songs, :capacity
 
-  def initialize(guests, songs)
+  def initialize(guests, songs, capacity)
     @guests = guests
     @songs = songs
+    @capacity = capacity
   end
 
-  def add_guest_to_room(guest)
-    @guests << guest
+  def add_guest_to_room(guest_name)
+    if @guests.length() >= @capacity
+      return "Sorry, no more space in this room."
+    else
+      @guests << guest_name
+    end
   end
 
   def remove_guest_from_room(guest_name)

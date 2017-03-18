@@ -11,12 +11,17 @@ class Room
     @entry_fee = entry_fee
   end
 
+  def find_guest(guest_name)
+    @guests.find {|guest| guest == guest_name}
+  end
+
   def add_guest_to_room(guest_name, guest_money)
     if @guests.length() >= @capacity
       return "Sorry, no more space in this room."
-    elsif guest_money.to_i() < @entry_fee.to_i()
+    elsif guest_money.to_i() < @entry_fee
       return "You don't have enough money for the entry fee."
     else
+      guest_money.to_i() - @entry_fee
       @guests << guest_name
     end
   end
@@ -28,15 +33,6 @@ class Room
 
   def add_song_to_room(song_name)
     @songs << song_name
-  end
-
-  def run()
-    # get input for guest_name and guest_money
-    # return new list of guests
-    # ask if they want to invite another guest
-    # return new list of guests
-    # give option of adding another person, removing a person, viewing song list, adding song to queue.
-
   end
 
 end

@@ -23,21 +23,22 @@ class Viewer
     @room1 = Room.new(@guests, @songs, 5, 2)
 
 
+
     puts "Welcome to the Karaoke bar! Please input your name."
     user_name = gets.chomp()
     puts ""
     puts "How much money have you got with you?"
-    user_money = gets.chomp()
+    @user_money = gets.chomp()
     puts ""
-      if user_money.to_i() >= @room1.entry_fee.to_i()
-        puts "Hi #{user_name}! Come on in."
-        puts ""
-        puts "You're here for your birthday party, so you now have the power to invite friends or eject people from the room. You also have complete control of the playlist."
-        return true
-      else 
-        puts "Sorry #{user_name}, you don't have enough money to get in."
-        return false
-      end
+    if user_money.to_i() >= @room1.entry_fee.to_i()
+      puts "Hi #{user_name}! Come on in."
+      puts ""
+      puts "You're here for your birthday party, so you now have the power to invite friends or eject people from the room. You also have complete control of the playlist."
+      return true
+    else 
+      puts "Sorry #{user_name}, you don't have enough money to get in."
+      return false
+    end
   end
 
   def options_menu
@@ -50,41 +51,70 @@ class Viewer
     puts "5. Add song to queue"
     puts "6. Leave bar"
     user_choice = gets.chomp()
+    
     if user_choice == '1'
       puts " "
       puts "Guest list:" 
       puts @room1.guests   
       puts " "     
-      elsif user_choice == '2'
+
+    elsif user_choice == '2'
         # go to add_guest_to_room method
-      puts " "
-      puts "What is your friend's name?"
-      friend_name = gets.chomp()
-      puts " "
-      puts "How much money are they bringing?"
-      friend_money = gets.chomp().to_i()
-      puts " "
-      @room1.add_guest_to_room(friend_name, friend_money.to_i()) 
-      puts " "
-        if @room1.add_guest_to_room(friend_name, friend_money) == true
-      puts "Welcome #{friend_name}!"
-      puts " "
+        puts " "
+        puts "What is your friend's name?"
+        friend_name = gets.chomp()
+        puts " "
+        puts "How much money are they bringing?"
+        friend_money = gets.chomp().to_i()
+        puts " "
+        @room1.add_guest_to_room(friend_name, friend_money.to_i()) 
+        puts " "
+        if @room1.find_guest(friend_name) == friend_name
+          puts "Welcome #{friend_name}!"
+          puts " "
+        elsif @room1.guests.length() >= @room1.capacity && friend_money.to_i() < @room1.entry_fee.to_i()
+          puts "Sorry, the bar is full. #{friend_name} doesn't have enough money to enter anyway..."
+          puts " "  
+        elsif @room1.guests.length() >= @room1.capacity
+          puts "Sorry, we're at capacity! #{friend_name} will have to wait until someone leaves."
+          puts " "
         else
-        puts "Unfortunately #{friend_name} can't afford the entry fee." 
+          puts "Unfortunately #{friend_name} can't afford the entry fee." 
         end
+
       elsif user_choice == '3'
-        # go to remove_guest_from room method
+        puts " "
+        puts "Who would you like to remove?"
+        remove_name = gets.chomp
+        puts " "
+        @room1.remove_guest_from_room(remove_name)
+        puts "#{remove_name} has been escorted from the building."
+
       elsif user_choice == '4'
-        # return list of songs, and allow user to add another song to the queue
+        puts " "
+        puts "Song list:" 
+        puts @room1.songs   
+        puts " "      
+
       elsif user_choice == '5'
-        # add song to list
+        puts " "
+        puts "Which song would you like to add to the queue?"
+        new_song = gets.chomp
+        @room1.add_song_to_room(new_song)
+        puts " "
+        puts "#{new_song} has been added to the song queue."
+
       elsif user_choice == '6'
         puts " "
         puts "You leave the bar, see you again soon!"
         puts " "
         return false
-      else return "Please choose from the above options."
+
+      else
+        puts " "
+        puts "Please choose from the above options."
+        puts " "
       end
     end
 
-end
+  end

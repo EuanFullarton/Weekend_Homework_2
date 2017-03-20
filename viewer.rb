@@ -60,70 +60,80 @@ class Viewer
       puts " "     
 
     elsif user_choice == '2'
+      puts " "
+      puts "What is your friend's name?"
+      friend_name = gets.chomp()
+      puts " "
+      puts "How much money are they bringing?"
+      friend_money = gets.chomp().to_i()
+      puts " "
+      @room1.add_guest_to_room(friend_name, friend_money.to_i()) 
+      puts " "
+      if @room1.find_guest(friend_name) == friend_name
+        puts "Welcome #{friend_name}!"
         puts " "
-        puts "What is your friend's name?"
-        friend_name = gets.chomp()
+      elsif @room1.guests.length() >= @room1.capacity && friend_money.to_i() < @room1.entry_fee.to_i()
+        puts "Sorry, the bar is full. #{friend_name} doesn't have enough money to enter anyway..."
+        puts " "  
+      elsif @room1.guests.length() >= @room1.capacity
+        puts "Sorry, we're at capacity! #{friend_name} will have to wait until someone leaves."
         puts " "
-        puts "How much money are they bringing?"
-        friend_money = gets.chomp().to_i()
-        puts " "
-        @room1.add_guest_to_room(friend_name, friend_money.to_i()) 
-        puts " "
-        if @room1.find_guest(friend_name) == friend_name
-          puts "Welcome #{friend_name}!"
-          puts " "
-        elsif @room1.guests.length() >= @room1.capacity && friend_money.to_i() < @room1.entry_fee.to_i()
-          puts "Sorry, the bar is full. #{friend_name} doesn't have enough money to enter anyway..."
-          puts " "  
-        elsif @room1.guests.length() >= @room1.capacity
-          puts "Sorry, we're at capacity! #{friend_name} will have to wait until someone leaves."
-          puts " "
-        else
-          puts "Unfortunately #{friend_name} can't afford the entry fee." 
-        end
+      else
+        puts "Unfortunately #{friend_name} can't afford the entry fee." 
+      end
 
-      elsif user_choice == '3'
-        puts " "
-        puts "Who would you like to remove?"
-        remove_name = gets.chomp
-        puts " "
+    elsif user_choice == '3'
+      puts " "
+      puts "Who would you like to remove?"
+      remove_name = gets.chomp
+      puts " "
+      if @room1.find_guest(remove_name) != nil
         @room1.remove_guest_from_room(remove_name)
         puts "#{remove_name} has been escorted from the building."
+      else
+        puts " "
+        puts "#{remove_name} could not be found in the room."
+      end
 
-      elsif user_choice == '4'
-        puts " "
-        puts "Song list:" 
-        puts @room1.songs   
-        puts " "      
+    elsif user_choice == '4'
+      puts " "
+      puts "Song list:" 
+      puts @room1.songs   
+      puts " "      
 
-      elsif user_choice == '5'
-        puts " "
-        puts "Which song would you like to add to the queue?"
-        new_song = gets.chomp
-        @room1.add_song_to_room(new_song)
-        puts " "
-        puts "#{new_song} has been added to the song queue."
+    elsif user_choice == '5'
+      puts " "
+      puts "Which song would you like to add to the queue?"
+      new_song = gets.chomp
+      @room1.add_song_to_room(new_song)
+      puts " "
+      puts "#{new_song} has been added to the song queue."
 
-      elsif user_choice == '6'
-        puts " "
-        puts "Which song would you like to remove?"
-        remove_song = gets.chomp
-        puts " "
+    elsif user_choice == '6'
+      puts " "
+      puts "Which song would you like to remove?"
+      remove_song = gets.chomp
+      puts " "
+      if @room1.find_song(remove_song) != nil
         @room1.remove_song_from_room(remove_song)
         puts " "
         puts "#{remove_song} has been taken out of the queue."
-
-      elsif user_choice == '7'
-        puts " "
-        puts "You leave the bar, see you again soon!"
-        puts " "
-        return false
-
       else
         puts " "
-        puts "Please choose from the above options."
-        puts " "
+        puts "#{remove_song} could not be found in the queue."
       end
-    end
 
+    elsif user_choice == '7'
+      puts " "
+      puts "You leave the bar, see you again soon!"
+      puts " "
+      return false
+
+    else
+      puts " "
+      puts "Please choose from the above options."
+      puts " "
+    end
   end
+
+end

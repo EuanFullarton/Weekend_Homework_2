@@ -49,7 +49,8 @@ class Viewer
     puts "3. Remove someone from premises"
     puts "4. View song queue"
     puts "5. Add song to queue"
-    puts "6. Leave bar"
+    puts "6. Remove song from queue"
+    puts "7. Leave bar"
     user_choice = gets.chomp()
     
     if user_choice == '1'
@@ -105,6 +106,15 @@ class Viewer
         puts "#{new_song} has been added to the song queue."
 
       elsif user_choice == '6'
+        puts " "
+        puts "Which song would you like to remove?"
+        remove_song = gets.chomp
+        puts " "
+        @room1.remove_song_from_room(remove_song)
+        puts " "
+        puts "#{remove_song} has been taken out of the queue."
+
+      elsif user_choice == '7'
         puts " "
         puts "You leave the bar, see you again soon!"
         puts " "

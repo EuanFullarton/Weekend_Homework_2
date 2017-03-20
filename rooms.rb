@@ -35,4 +35,9 @@ class Room
     @songs << song_name
   end
 
+  def remove_song_from_room(song_name)
+    @songs.delete(song_name)
+    return @songs
+  end
+
 end

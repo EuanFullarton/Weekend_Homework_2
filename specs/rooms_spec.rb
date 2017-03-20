@@ -47,6 +47,10 @@ class TestRoom < MiniTest::Test
     assert_equal(["Tragedy", "Sweet Child O Mine", "Walk This Way", "Dancing in the Dark"], @room1.add_song_to_room("Dancing in the Dark"))
   end
 
+  def test_remove_song_from_room
+    assert_equal(["Sweet Child O Mine", "Walk This Way"], @room1.remove_song_from_room("Tragedy"))
+  end
+
   def test_if_room_is_full
     assert_equal(["Percy", "Reginald", "Agnes", "Norman"], @room1.add_guest_to_room("Norman", 4))
     assert_equal(["Percy", "Reginald", "Agnes", "Norman", "Jim"], @room1.add_guest_to_room("Jim", 4))

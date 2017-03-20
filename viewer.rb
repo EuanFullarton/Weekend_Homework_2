@@ -24,8 +24,8 @@ class Viewer
 
 
 
-    puts "Welcome to the Karaoke bar! Please input your name."
-    user_name = gets.chomp()
+    puts "Welcome to the Karaoke bar! Entry fee is 2. What's your name?"
+    @user_name = gets.chomp()
     puts ""
     puts "How much money have you got with you?"
     @user_money = gets.chomp()
@@ -34,6 +34,7 @@ class Viewer
       puts "Hi #{user_name}! Come on in."
       puts ""
       puts "You're here for your birthday party, so you now have the power to invite friends or eject people from the room. You also have complete control of the playlist."
+      @room1.add_guest_to_room(user_name, user_money)
       return true
     else 
       puts "Sorry #{user_name}, you don't have enough money to get in."
@@ -87,12 +88,17 @@ class Viewer
       puts "Who would you like to remove?"
       remove_name = gets.chomp
       puts " "
-      if @room1.find_guest(remove_name) != nil
+      if remove_name == @user_name
+        puts " "
+        puts "You have asked the bouncers to kick you out, your night is over!"
+        puts " "
+        return false
+      elsif @room1.find_guest(remove_name) != nil
         @room1.remove_guest_from_room(remove_name)
         puts "#{remove_name} has been escorted from the building."
       else
         puts " "
-        puts "#{remove_name} could not be found in the room."
+        puts "#{remove_name} isn't in the room."
       end
 
     elsif user_choice == '4'
@@ -120,7 +126,7 @@ class Viewer
         puts "#{remove_song} has been taken out of the queue."
       else
         puts " "
-        puts "#{remove_song} could not be found in the queue."
+        puts "#{remove_song} isn't in the queue."
       end
 
     elsif user_choice == '7'

@@ -31,6 +31,10 @@ class TestRoom < MiniTest::Test
     assert_equal("Reginald", @room1.find_guest("Reginald"))
   end
 
+  def test_find_song
+    assert_equal("Walk This Way", @room1.find_song("Walk This Way"))
+  end
+
   def test_room_has_songs
     assert_equal(["Tragedy", "Sweet Child O Mine", "Walk This Way"], @room1.songs)
   end

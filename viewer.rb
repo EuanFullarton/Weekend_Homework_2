@@ -60,7 +60,6 @@ class Viewer
       puts " "     
 
     elsif user_choice == '2'
-        # go to add_guest_to_room method
         puts " "
         puts "What is your friend's name?"
         friend_name = gets.chomp()

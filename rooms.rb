@@ -31,6 +31,10 @@ class Room
     return @guests
   end
 
+  def find_song(song_name)
+    @songs.find {|song| song == song_name}
+  end
+
   def add_song_to_room(song_name)
     @songs << song_name
   end
